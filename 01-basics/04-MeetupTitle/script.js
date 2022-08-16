@@ -22,13 +22,14 @@ const App = defineComponent({
 
   data() {
       return {
-          selectedMeetupId:undefined,
+          selectedMeetupId:1,
           meetupTitle:undefined
       };
   },
 
   watch: {
     selectedMeetupId: {
+      immediate: true,
       handler() {
         if(isNaN(this.selectedMeetupId)){
           this.meetupTitle = '';
@@ -41,12 +42,7 @@ const App = defineComponent({
         fetchMeetupById(this.selectedMeetupId).then((meetup) => this.meetupTitle = meetup.title);
       },
     },
-  },
-
-  // Как только приложение будет смонтировано - обновляем данные
-  mounted() {
-    this.selectedMeetupId = 1;
-  },
+  }
 });
 
 // Создаём новое приложение по корневому компоненту
