@@ -38,6 +38,12 @@ export default defineComponent({
           .catch((e) => (this.error = e));
       },
     },
+    error: {
+      immediate: true,
+      handler() {
+        this.meetup = null;
+      },
+    }
   },
 
   template: `
@@ -48,8 +54,7 @@ export default defineComponent({
         <UiAlert>Загрузка...</UiAlert>
       </UiContainer>
       <UiContainer v-else>
-        <UiAlert v-if="error"> {{ error }} </UiAlert>
-        <UiAlert v-else> Unknown error </UiAlert>
+        <UiAlert>{{ error }}</UiAlert>
       </UiContainer>
     </div>`,
 });
