@@ -50,11 +50,11 @@ export default defineComponent({
     <div class="page-meetup">
       <!-- meetup view -->
       <MeetupView v-if="meetup" :meetup = "meetup"/>
-      <UiContainer v-else-if="meetup === null && error === null">
+      <UiContainer v-else-if="error === null">
         <UiAlert>Загрузка...</UiAlert>
       </UiContainer>
       <UiContainer v-else>
-        <UiAlert>{{ error }}</UiAlert>
+        <UiAlert>{{ error.message }}</UiAlert>
       </UiContainer>
     </div>`,
 });
