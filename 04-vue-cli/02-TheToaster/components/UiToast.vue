@@ -1,12 +1,23 @@
 <template>
-  <div class="toast" :class="toastClass">
-    <ui-icon class="toast__icon" :icon="toastIconName" />
+  <div class="toast" :class="toastStyle.className">
+    <ui-icon class="toast__icon" :icon="toastStyle.iconName" />
     <span>{{ message }}</span>
   </div>
 </template>
 
 <script>
 import UiIcon from './UiIcon.vue';
+
+const toastStylesByType = {
+  success: {
+    className: 'toast_success',
+    iconName: 'check-circle',
+  },
+  error: {
+    className: 'toast_error',
+    iconName: 'alert-circle',
+  },
+};
 
 export default {
   name: 'UiToast',
@@ -34,30 +45,9 @@ export default {
 
   emits: ['timeout'],
 
-  data() {
-    return {
-      toastClass: null,
-      toastIconName: null,
-    };
-  },
-
-  watch: {
-    type: {
-      immediate: true,
-      handler() {
-        switch(this.type){
-          case "success":
-            this.toastClass = "toast_success";
-            this.toastIconName = "check-circle";
-            break;
-          case "error":
-            this.toastClass = "toast_error";
-            this.toastIconName = "alert-circle";
-            break;
-          default:
-            throw new TypeError("Unknown toast type", this.type);
-        }
-      },
+  computed: {
+    toastStyle() {
+      return toastStylesByType[this.type];
     },
   },
 

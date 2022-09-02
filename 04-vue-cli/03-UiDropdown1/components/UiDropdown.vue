@@ -6,8 +6,8 @@
       :class="{ dropdown__toggle_icon: isOptionsHasAnyIcon }"
       @click="dropDownClick"
     >
-      <ui-icon v-if="selectedIcon" :icon="selectedIcon" class="dropdown__icon" />
-      <span>{{ selectedText ? selectedText : title }}</span>
+      <ui-icon v-if="selectedItem?.icon" :icon="selectedItem.icon" class="dropdown__icon" />
+      <span>{{ selectedItem?.text ? selectedItem.text : title }}</span>
     </button>
 
     <div v-show="isDropDown" class="dropdown__menu" role="listbox">
@@ -56,34 +56,17 @@ export default {
   data() {
     return {
       isDropDown: false,
-      isOptionsHasAnyIcon: false,
-      selectedItem: undefined,
-      selectedText: undefined,
     };
   },
 
-  watch: {
-    modelValue: {
-      immediate: true,
-      handler() {
-        if (this.modelValue !== null && this.modelValue !== undefined) {
-          let selectedItem = this.options.find((item) => item.value === this.modelValue);
-          if (selectedItem !== undefined) {
-            this.selectedIcon = selectedItem.icon;
-            this.selectedText = selectedItem.text;
-            return;
-          }
-        }
-        this.selectedIcon = undefined;
-        this.selectedText = undefined;
-      },
+  computed: {
+    selectedItem() {
+      return this.modelValue !== null && this.modelValue !== undefined
+        ? this.options.find((item) => item.value === this.modelValue)
+        : undefined;
     },
-    options: {
-      immediate: true,
-      handler() {
-        let index = this.options.findIndex((item) => item.icon !== undefined && item.icon !== null);
-        this.isOptionsHasAnyIcon = index >= 0;
-      },
+    isOptionsHasAnyIcon() {
+      return this.options.findIndex((item) => item.icon !== undefined && item.icon !== null) >= 0;
     },
   },
 
