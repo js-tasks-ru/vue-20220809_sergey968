@@ -37,10 +37,6 @@ export default {
       type: Number,
       required: true,
     },
-    number: {
-      type: Number,
-      required: true,
-    },
   },
 
   emits: ['timeout'],
@@ -53,7 +49,7 @@ export default {
 
   mounted() {
     setTimeout(() => {
-      this.$emit('timeout', this.number);
+      this.$emit('timeout');
     }, this.seconds * 1000);
   },
 };

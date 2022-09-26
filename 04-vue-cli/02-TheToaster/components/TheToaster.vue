@@ -6,8 +6,7 @@
       :type="item.type"
       :message="item.message"
       :seconds="item.seconds"
-      :number="item.number"
-      @timeout="OnTimeOut"
+      @timeout="OnTimeOut(item.number)"
     />
   </div>
 </template>

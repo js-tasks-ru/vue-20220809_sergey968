@@ -4,7 +4,7 @@ export const router = createRouter({
   history: createWebHistory('/05-vue-router/03-ScrollBehavior'),
 
   scrollBehavior(to, from, savedPosition) {
-    if (to.meta?.saveScrollPosition && from.meta?.saveScrollPosition) {
+    if (to.meta.saveScrollPosition && from.meta.saveScrollPosition) {
       return {};
     } else if (savedPosition) {
       return savedPosition;

@@ -1,13 +1,12 @@
 <template>
-  <a v-if="tag && tag == 'a'" class="link"><slot /></a>
-  <router-link v-else><slot /></router-link>
+  <component :is="tag" class="link"><slot /></component>
 </template>
 
 <script>
 export default {
   name: 'UiLink',
   props: {
-    tag: { type: String, default: null },
+    tag: { type: [String, Object, Function], default: 'router-link' },
   },
 };
 </script>
