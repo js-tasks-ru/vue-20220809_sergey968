@@ -1,25 +1,47 @@
 <template>
   <div class="toasts">
-    <div class="toast toast_success">
-      <ui-icon class="toast__icon" icon="check-circle" />
-      <span>Success Toast Example</span>
-    </div>
-
-    <div class="toast toast_error">
-      <ui-icon class="toast__icon" icon="alert-circle" />
-      <span>Error Toast Example</span>
-    </div>
+    <UiToast
+      v-for="item in items"
+      :key="item.number"
+      :type="item.type"
+      :message="item.message"
+      :seconds="item.seconds"
+      @timeout="OnTimeOut(item.number)"
+    />
   </div>
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
+import UiToast from './UiToast.vue';
 
 export default {
   name: 'TheToaster',
 
-  components: { UiIcon },
-};
+  components: { UiToast },
+
+  data() {
+    return {
+      items: [],
+      count: 0,
+    };
+  },
+
+  methods: {
+    addItem(message, type) {
+      this.items.push({ type: type, message: message, seconds: 5, number: ++this.count });
+    },
+    success(message) {
+      this.addItem(message, 'success');
+    },
+    error(message) {
+      this.addItem(message, 'error');
+    },
+    OnTimeOut(number) {
+      let index = this.items.findIndex((item) => item.number == number);
+      if (index >= 0) this.items.splice(index, 1);
+    },
+  },
+}
 </script>
 
 <style scoped>
@@ -41,33 +63,4 @@ export default {
   }
 }
 
-.toast {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: row;
-  align-items: center;
-  padding: 16px;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  font-size: 18px;
-  line-height: 28px;
-  width: auto;
-}
-
-.toast + .toast {
-  margin-top: 20px;
-}
-
-.toast__icon {
-  margin-right: 12px;
-}
-
-.toast.toast_success {
-  color: var(--green);
-}
-
-.toast.toast_error {
-  color: var(--red);
-}
 </style>

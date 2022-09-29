@@ -1,14 +1,17 @@
 <template>
   <div class="wrapper">
     <meetups-header />
-    <main class="main">
-      <div>CURRENT PAGE</div>
-    </main>
+    <ui-form-group>
+      <main class="main">
+        <router-view />
+      </main>
+    </ui-form-group>
     <meetups-footer />
   </div>
 </template>
 
 <script>
+import UiFormGroup from './components/UiFormGroup';
 import MeetupsHeader from './components/MeetupsHeader';
 import MeetupsFooter from './components/MeetupsFooter';
 
@@ -16,6 +19,7 @@ export default {
   name: 'App',
 
   components: {
+    UiFormGroup,
     MeetupsFooter,
     MeetupsHeader,
   },
